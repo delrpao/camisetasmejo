@@ -95,7 +95,7 @@ nav a:hover {
     border: 2px solid #0033a0;
     border-radius: 10px;
     padding: 20px;
-    width: 300px; /* un poco más ancho para simetría */
+    width: 300px;
     transition: 0.3s;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
@@ -107,8 +107,8 @@ nav a:hover {
 
 /* === IMÁGENES MÁS GRANDES Y SIMÉTRICAS === */
 .producto img {
-    width: 95%;       /* más ancho */
-    height: 340px;    /* un poco más alto que antes */
+    width: 95%;
+    height: 340px;
     object-fit: contain;
     border-radius: 6px;
     display: block;
@@ -146,18 +146,27 @@ nav a:hover {
     border-radius: 6px;
     margin-top: 5px;
     width: 100%;
+    box-sizing: border-box;
 }
 
+/* === SIN DORSAL === */
 .sin-dorsal {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: flex-start;
+    gap: 8px;
     color: #222;
     font-weight: normal;
+    font-size: 0.95em;
+    line-height: 1.4;
+    padding-left: 2px;
 }
 
-.sin-dorsal input {
+.sin-dorsal input[type="checkbox"] {
     transform: scale(1.2);
+    width: 18px;
+    height: 18px;
+    accent-color: #0033a0; /* color azul club */
 }
 
 /* === BOTONES === */
@@ -299,6 +308,31 @@ footer {
 
     .producto img {
         width: 95%;
-        height: 380px; /* un poco más alto en móvil */
+        height: 380px;
+    }
+}
+
+/* === CORRECCIONES PARA MÓVILES (iPhone, etc.) === */
+@media (max-width: 480px) {
+    .opciones {
+        gap: 12px;
+    }
+
+    .sin-dorsal {
+        font-size: 1em;
+    }
+
+    .num-label,
+    .sin-dorsal {
+        width: 100%;
+    }
+
+    .producto {
+        padding: 15px;
+    }
+
+    .producto img {
+        width: 100%;
+        height: auto;
     }
 }

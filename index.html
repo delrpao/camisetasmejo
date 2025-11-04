@@ -159,6 +159,19 @@
                 }
             } else if (paso === 2) {
                 if (opcion === 1) {
-                    historia.textContent = "La cabaña parece abandon
+                    historia.textContent = "La cabaña parece abandonada, pero hay una puerta entreabierta. ¿Entrar o seguir?";
+                } else {
+                    historia.textContent = "Te acercas al río y ves un puente viejo. ¿Cruzar o volver?";
+                }
+            } else {
+                historia.textContent = "Tu aventura termina aquí. ¡Gracias por jugar!";
+                document.getElementById('opcion1').style.display = "none";
+                document.getElementById('opcion2').style.display = "none";
+            }
+        }
 
-
+        // Inicializar historia
+        document.getElementById('historia').textContent = "Empieza tu aventura: elige la primera opción.";
+    </script>
+</body>
+</html>

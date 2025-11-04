@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html lang="es">
-
-<body>
-Esta pagina ha sido cambiada a otra con otro nombre. Gracias.
-  <title>Cucaracha Animada</title>
-<style>
-  .cucaracha {
-    position: relative;
-    width: 50px; /* Ajusta según el tamaño de tu imagen */
-    height: 50px; /* Ajusta según el tamaño de tu imagen */
-    background-image: url('cucaracha.png'); /* Reemplaza con la ruta de tu imagen */
-    background-size: cover;
-    animation: mover 5s linear infinite; /* Nombre de la animación, duración y repetición */
-  }
-
-  @keyframes mover {
-    0% { left: 0; }
-    50% { left: 200px; } /* Cambia el valor para ajustar la distancia */
-    100% { left: 0; }
-  }
-</style>
+<head>
+    <meta charset="UTF-8">
+    <title> Esta pagina ha cambiado a otra pagina asique juega a Adivinar el Número</title>
 </head>
 <body>
+    <h1>🎲 Juego de Adivinar el Número</h1>
+    <p>Ingresa un número entre 1 y 10:</p>
 
-<div class="cucaracha"></div>
+    <input type="number" id="numero" min="1" max="10">
+    <button onclick="adivinar()">Adivinar</button>
+
+    <p id="mensaje"></p>
+
+    <script>
+        const numeroSecreto = Math.floor(Math.random() * 10) + 1;
+
+        function adivinar() {
+            const input = document.getElementById('numero');
+            const mensaje = document.getElementById('mensaje');
+            const valor = parseInt(input.value);
+
+            if (isNaN(valor) || valor < 1 || valor > 10) {
+                mensaje.textContent = "❌ Ingresa un número válido entre 1 y 10.";
+                return;
+            }
+
+            if (valor === numeroSecreto) {
+                mensaje.textContent = "🎉 ¡Correcto! Has adivinado el número.";
+            } else if (valor < numeroSecreto) {
+                mensaje.textContent = "⬆️ Intenta un número más alto.";
+            } else {
+                mensaje.textContent = "⬇️ Intenta un número más bajo.";
+            }
+        }
+    </script>
 </body>
 </html>
 

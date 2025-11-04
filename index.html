@@ -50,25 +50,16 @@
         <button onclick="reiniciarClick()" style="width: 100%; padding: 10px; font-size: 16px; margin-top: 5px; border-radius: 5px;">Reiniciar</button>
     </section>
 
-    <!-- Juego 5: Historia Interactiva -->
-    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #9C27B0; border-radius: 10px;">
-        <h2>📖 Historia Interactiva</h2>
-        <p id="historia" style="font-weight: bold;"></p>
-        <button id="opcion1" onclick="elegir(1)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 1</button>
-        <button id="opcion2" onclick="elegir(2)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 2</button>
-    </section>
-
-    <!-- Juego 6: Reacción Rápida -->
-    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #3F51B5; border-radius: 10px;">
-        <h2>⚡ Reacción Rápida</h2>
-        <p>Toca el círculo que aparece antes de que desaparezca. ¡Supera tu récord!</p>
-        <p>Puntuación: <span id="reactionScore">0</span></p>
-        <div id="reactionGame" style="position: relative; width: 300px; height: 400px; margin: auto; background-color: #e0e0e0; border-radius: 10px; border: 2px solid #3F51B5; overflow: hidden;"></div>
-        <button onclick="iniciarReaccion()" style="margin-top: 10px; padding: 10px 20px; font-size: 16px;">Reiniciar Juego</button>
+    <!-- Juego 5: Botón Tontorrón -->
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #FF5722; border-radius: 10px; position: relative; height: 200px;">
+        <h2>🤣 Botón Tontorrón</h2>
+        <p>Intenta hacer clic en el botón... ¡Se mueve!</p>
+        <button id="botonTonto" style="position: absolute; padding: 10px 15px; background-color: #FF5722; color: white; border: none; border-radius: 5px;">Atrápame</button>
+        <p>Intentos: <span id="intentos">0</span></p>
     </section>
 
     <script>
-        // --------------------- Juego 1: Adivinar el Número ---------------------
+        // Juego 1: Adivinar el Número
         const numeroSecreto = Math.floor(Math.random() * 10) + 1;
         function adivinar() {
             const input = document.getElementById('numero');
@@ -89,7 +80,7 @@
             }
         }
 
-        // --------------------- Juego 2: Piedra, Papel o Tijeras ---------------------
+        // Juego 2: Piedra, Papel o Tijeras
         function jugar(eleccionJugador) {
             const opciones = ['piedra', 'papel', 'tijeras'];
             const eleccionComputadora = opciones[Math.floor(Math.random() * 3)];
@@ -110,13 +101,16 @@
             document.getElementById('resultado').textContent = resultadoTexto;
         }
 
-        // --------------------- Juego 3: Trivia ---------------------
+        // Juego 3: Trivia
         const preguntas = [
             {q: "Capital de Francia?", a: "paris"},
             {q: "5 + 7 = ?", a: "12"},
             {q: "Color del cielo en un día despejado?", a: "azul"},
             {q: "¿Cuántos meses tienen 30 días?", a: "4"},
-            {q: "Lenguaje usado en páginas web?", a: "html"}
+            {q: "Lenguaje usado en páginas web?", a: "html"},
+            {q: "Capital de España?", a: "madrid"},
+            {q: "Cuántos continentes hay?", a: "7"},
+            {q: "¿Qué animal dice 'miau'?", a: "gato"}
         ];
         let puntos = 0;
         let preguntaActual = 0;
@@ -143,7 +137,7 @@
 
         document.getElementById('pregunta').textContent = preguntas[preguntaActual].q;
 
-        // --------------------- Juego 4: Contador de Clicks ---------------------
+        // Juego 4: Contador de Clicks
         let clicks = 0;
         function sumarClick() {
             clicks++;
@@ -154,52 +148,17 @@
             document.getElementById('clicks').textContent = clicks;
         }
 
-        // --------------------- Juego 5: Historia Interactiva ---------------------
-        let paso = 0;
-        function elegir(opcion) {
-            const historia = document.getElementById('historia');
-            paso++;
-            if (paso === 1) {
-                if (opcion === 1) {
-                    historia.textContent = "Te encuentras en un bosque oscuro. Ves una cabaña a la derecha y un río a la izquierda.";
-                } else {
-                    historia.textContent = "Decides quedarte en el camino y escuchas ruidos extraños cerca de ti.";
-                }
-            } else if (paso === 2) {
-                if (opcion === 1) {
-                    historia.textContent = "La cabaña parece abandonada, pero hay una puerta entreabierta. ¿Entrar o seguir?";
-                } else {
-                    historia.textContent = "Te acercas al río y ves un puente viejo. ¿Cruzar o volver?";
-                }
-            } else {
-                historia.textContent = "Tu aventura termina aquí. ¡Gracias por jugar!";
-                document.getElementById('opcion1').style.display = "none";
-                document.getElementById('opcion2').style.display = "none";
-            }
-        }
-        document.getElementById('historia').textContent = "Empieza tu aventura: elige la primera opción.";
-
-        // --------------------- Juego 6: Reacción Rápida ---------------------
-        const reactionGame = document.getElementById('reactionGame');
-        const reactionScore = document.getElementById('reactionScore');
-        let reactionCurrentScore = 0;
-        let reactionCircle, reactionTimeout;
-
-        function crearCirculo() {
-            if (reactionCircle) reactionGame.removeChild(reactionCircle);
-
-            reactionCircle = document.createElement('div');
-            reactionCircle.style.width = '50px';
-            reactionCircle.style.height = '50px';
-            reactionCircle.style.backgroundColor = 'red';
-            reactionCircle.style.borderRadius = '50%';
-            reactionCircle.style.position = 'absolute';
-            reactionCircle.style.top = Math.random() * (reactionGame.clientHeight - 50) + 'px';
-            reactionCircle.style.left = Math.random() * (reactionGame.clientWidth - 50) + 'px';
-            reactionGame.appendChild(reactionCircle);
-
-            reactionCircle.addEventListener('click', () => {
-                reactionCurrentScore++;
-                reactionScore.textContent = reactionCurrentScore;
-                clearTimeout(reactionTimeout);
-                crearCirculo
+        // Juego 5: Botón Tontorrón
+        const botonTonto = document.getElementById('botonTonto');
+        let intentos = 0;
+        botonTonto.addEventListener('click', () => {
+            intentos++;
+            document.getElementById('intentos').textContent = intentos;
+            const maxX = window.innerWidth - botonTonto.offsetWidth - 20;
+            const maxY = 200 - botonTonto.offsetHeight; // altura de la sección
+            botonTonto.style.left = Math.floor(Math.random() * maxX) + 'px';
+            botonTonto.style.top = Math.floor(Math.random() * maxY) + 'px';
+        });
+    </script>
+</body>
+</html>

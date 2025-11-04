@@ -2,37 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Mini Juegos</title>
+    <title>Mini Juegos para Móvil</title>
 </head>
-<body>
-    <h2>Ahora esta página es para jugar! 🎉</h2>
-    <h1>🎮 Mini Juegos</h1>
+<body style="font-family: Arial, sans-serif; margin: 10px; padding: 0;">
+
+    <h2 style="text-align: center; color: darkblue;">Ahora esta página es para jugar! 🎉</h2>
+    <h1 style="text-align: center;">🎮 Mini Juegos</h1>
 
     <!-- Juego 1: Adivinar el Número -->
-    <section>
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 10px;">
         <h2>🎲 Adivina el Número</h2>
         <p>Ingresa un número entre 1 y 10:</p>
-        <input type="number" id="numero" min="1" max="10">
-        <button onclick="adivinar()">Adivinar</button>
-        <p id="mensaje"></p>
+        <input type="number" id="numero" min="1" max="10" style="width: 100%; padding: 8px; font-size: 16px;">
+        <button onclick="adivinar()" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">Adivinar</button>
+        <p id="mensaje" style="font-weight: bold;"></p>
     </section>
 
-    <hr>
-
     <!-- Juego 2: Piedra, Papel o Tijeras -->
-    <section>
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #f44336; border-radius: 10px;">
         <h2>✊ Piedra, 🖐 Papel, ✌ Tijeras</h2>
         <p>Elige tu jugada:</p>
-        <button onclick="jugar('piedra')">✊ Piedra</button>
-        <button onclick="jugar('papel')">🖐 Papel</button>
-        <button onclick="jugar('tijeras')">✌ Tijeras</button>
-        <p id="resultado"></p>
+        <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+            <button onclick="jugar('piedra')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">✊ Piedra</button>
+            <button onclick="jugar('papel')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">🖐 Papel</button>
+            <button onclick="jugar('tijeras')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">✌ Tijeras</button>
+        </div>
+        <p id="resultado" style="font-weight: bold;"></p>
+    </section>
+
+    <!-- Juego 3: Trivia -->
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #2196F3; border-radius: 10px;">
+        <h2>🧠 Trivia Rápida</h2>
+        <p>Responde correctamente para ganar puntos:</p>
+        <p id="pregunta" style="font-weight: bold;"></p>
+        <input type="text" id="respuesta" placeholder="Escribe tu respuesta aquí" style="width: 100%; padding: 8px; font-size: 16px;">
+        <button onclick="verificarRespuesta()" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; background-color: #2196F3; color: white; border: none; border-radius: 5px;">Responder</button>
+        <p id="mensajeTrivia" style="font-weight: bold;"></p>
+        <p>Puntos: <span id="puntos">0</span></p>
+    </section>
+
+    <!-- Juego 4: Contador de Clicks -->
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #FF9800; border-radius: 10px;">
+        <h2>🖱️ Click Rápido</h2>
+        <p>Haz clic lo más rápido posible:</p>
+        <button onclick="sumarClick()" style="width: 100%; padding: 15px; font-size: 18px; background-color: #FF9800; color: white; border: none; border-radius: 5px;">¡Click!</button>
+        <p>Clicks: <span id="clicks">0</span></p>
+        <button onclick="reiniciarClick()" style="width: 100%; padding: 10px; font-size: 16px; margin-top: 5px; border-radius: 5px;">Reiniciar</button>
+    </section>
+
+    <!-- Juego 5: Historia Interactiva -->
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #9C27B0; border-radius: 10px;">
+        <h2>📖 Historia Interactiva</h2>
+        <p id="historia" style="font-weight: bold;"></p>
+        <button id="opcion1" onclick="elegir(1)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 1</button>
+        <button id="opcion2" onclick="elegir(2)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 2</button>
     </section>
 
     <script>
         // Juego 1: Adivinar el Número
         const numeroSecreto = Math.floor(Math.random() * 10) + 1;
-
         function adivinar() {
             const input = document.getElementById('numero');
             const mensaje = document.getElementById('mensaje');
@@ -72,8 +100,65 @@
 
             document.getElementById('resultado').textContent = resultadoTexto;
         }
-    </script>
-</body>
-</html>
+
+        // Juego 3: Trivia
+        const preguntas = [
+            {q: "Capital de Francia?", a: "paris"},
+            {q: "5 + 7 = ?", a: "12"},
+            {q: "Color del cielo en un día despejado?", a: "azul"},
+            {q: "¿Cuántos meses tienen 30 días?", a: "4"},
+            {q: "Lenguaje usado en páginas web?", a: "html"}
+        ];
+        let puntos = 0;
+        let preguntaActual = 0;
+
+        function verificarRespuesta() {
+            const respuesta = document.getElementById('respuesta').value.toLowerCase();
+            const mensajeTrivia = document.getElementById('mensajeTrivia');
+            if (respuesta === preguntas[preguntaActual].a) {
+                puntos++;
+                mensajeTrivia.textContent = "✅ Correcto!";
+            } else {
+                mensajeTrivia.textContent = `❌ Incorrecto! La respuesta correcta era: ${preguntas[preguntaActual].a}`;
+            }
+            document.getElementById('puntos').textContent = puntos;
+            preguntaActual++;
+            if (preguntaActual < preguntas.length) {
+                document.getElementById('pregunta').textContent = preguntas[preguntaActual].q;
+                document.getElementById('respuesta').value = "";
+            } else {
+                document.getElementById('pregunta').textContent = "¡Se acabaron las preguntas!";
+                document.getElementById('respuesta').style.display = "none";
+            }
+        }
+
+        // Inicializar primera pregunta
+        document.getElementById('pregunta').textContent = preguntas[preguntaActual].q;
+
+        // Juego 4: Contador de Clicks
+        let clicks = 0;
+        function sumarClick() {
+            clicks++;
+            document.getElementById('clicks').textContent = clicks;
+        }
+        function reiniciarClick() {
+            clicks = 0;
+            document.getElementById('clicks').textContent = clicks;
+        }
+
+        // Juego 5: Historia Interactiva
+        let paso = 0;
+        function elegir(opcion) {
+            const historia = document.getElementById('historia');
+            paso++;
+            if (paso === 1) {
+                if (opcion === 1) {
+                    historia.textContent = "Te encuentras en un bosque oscuro. Ves una cabaña a la derecha y un río a la izquierda.";
+                } else {
+                    historia.textContent = "Decides quedarte en el camino y escuchas ruidos extraños cerca de ti.";
+                }
+            } else if (paso === 2) {
+                if (opcion === 1) {
+                    historia.textContent = "La cabaña parece abandon
 
 

@@ -58,8 +58,17 @@
         <button id="opcion2" onclick="elegir(2)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 2</button>
     </section>
 
+    <!-- Juego 6: Salta el Bloque -->
+    <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #3F51B5; border-radius: 10px;">
+        <h2>🏃‍♂️ Salta el Bloque</h2>
+        <p>Toca la pantalla o el bloque azul para saltar y evita chocar. ¡Supera tu récord!</p>
+        <p>Puntuación: <span id="score">0</span></p>
+        <div id="gameArea" style="position: relative; width: 300px; height: 400px; margin: auto; background-color: #e0e0e0; overflow: hidden; border-radius: 10px; border: 2px solid #3F51B5;"></div>
+        <button onclick="reiniciarSalto()" style="margin-top: 10px; padding: 10px 20px; font-size: 16px;">Reiniciar Juego</button>
+    </section>
+
     <script>
-        // Juego 1: Adivinar el Número
+        // --------------------- Juego 1: Adivinar el Número ---------------------
         const numeroSecreto = Math.floor(Math.random() * 10) + 1;
         function adivinar() {
             const input = document.getElementById('numero');
@@ -80,7 +89,7 @@
             }
         }
 
-        // Juego 2: Piedra, Papel o Tijeras
+        // --------------------- Juego 2: Piedra, Papel o Tijeras ---------------------
         function jugar(eleccionJugador) {
             const opciones = ['piedra', 'papel', 'tijeras'];
             const eleccionComputadora = opciones[Math.floor(Math.random() * 3)];
@@ -101,7 +110,7 @@
             document.getElementById('resultado').textContent = resultadoTexto;
         }
 
-        // Juego 3: Trivia
+        // --------------------- Juego 3: Trivia ---------------------
         const preguntas = [
             {q: "Capital de Francia?", a: "paris"},
             {q: "5 + 7 = ?", a: "12"},
@@ -132,10 +141,9 @@
             }
         }
 
-        // Inicializar primera pregunta
         document.getElementById('pregunta').textContent = preguntas[preguntaActual].q;
 
-        // Juego 4: Contador de Clicks
+        // --------------------- Juego 4: Contador de Clicks ---------------------
         let clicks = 0;
         function sumarClick() {
             clicks++;
@@ -146,7 +154,7 @@
             document.getElementById('clicks').textContent = clicks;
         }
 
-        // Juego 5: Historia Interactiva
+        // --------------------- Juego 5: Historia Interactiva ---------------------
         let paso = 0;
         function elegir(opcion) {
             const historia = document.getElementById('historia');
@@ -169,9 +177,102 @@
                 document.getElementById('opcion2').style.display = "none";
             }
         }
-
-        // Inicializar historia
         document.getElementById('historia').textContent = "Empieza tu aventura: elige la primera opción.";
+
+        // --------------------- Juego 6: Salta el Bloque ---------------------
+        const gameArea = document.getElementById('gameArea');
+        const scoreDisplay = document.getElementById('score');
+
+        let player, obstacle;
+        let score = 0;
+        let gameOver = false;
+        let obstacleSpeed = 4;
+        let gravity = 0.8;
+        let jumpForce = -12;
+        let playerY = 0;
+        let playerVelocity = 0;
+
+        function iniciarSalto() {
+            gameArea.innerHTML = '';
+            score = 0;
+            gameOver = false;
+            obstacleSpeed = 4;
+            playerY = 0;
+            playerVelocity = 0;
+            scoreDisplay.textContent = score;
+
+            // Crear jugador
+            player = document.createElement('div');
+            player.style.width = '50px';
+            player.style.height = '50px';
+            player.style.backgroundColor = 'green';
+            player.style.position = 'absolute';
+            player.style.bottom = '0px';
+            player.style.left = '50px';
+            player.style.borderRadius = '5px';
+            gameArea.appendChild(player);
+
+            // Crear obstáculo
+            obstacle = document.createElement('div');
+            obstacle.style.width = '50px';
+            obstacle.style.height = '50px';
+            obstacle.style.backgroundColor = 'blue';
+            obstacle.style.position = 'absolute';
+            obstacle.style.bottom = '0px';
+            obstacle.style.left = gameArea.clientWidth + 'px';
+            obstacle.style.borderRadius = '5px';
+            gameArea.appendChild(obstacle);
+
+            requestAnimationFrame(juegoLoop);
+
+            // Salto al tocar
+            gameArea.addEventListener('click', saltar);
+            gameArea.addEventListener('touchstart', saltar);
+        }
+
+        function saltar() {
+            if (!gameOver && playerY === 0) {
+                playerVelocity = jumpForce;
+            }
+        }
+
+        function juegoLoop() {
+            if (gameOver) return;
+
+            // Movimiento jugador
+            playerVelocity += gravity;
+            playerY += playerVelocity;
+            if (playerY < 0) {
+                playerY = 0;
+                playerVelocity = 0;
+            }
+            player.style.bottom = playerY + 'px';
+
+            // Movimiento obstáculo
+            let obstacleX = parseInt(obstacle.style.left);
+            obstacleX -= obstacleSpeed;
+            if (obstacleX + 50 < 0) {
+                obstacleX = gameArea.clientWidth;
+                score++;
+                scoreDisplay.textContent = score;
+                if (score % 5 === 0) obstacleSpeed += 1;
+            }
+            obstacle.style.left = obstacleX + 'px';
+
+            // Colisión
+            if (obstacleX < 100 && obstacleX + 50 > 50 && playerY < 50) {
+                gameOver = true;
+                alert('💥 ¡Chocaste! Puntuación final: ' + score);
+            }
+
+            requestAnimationFrame(juegoLoop);
+        }
+
+        function reiniciarSalto() {
+            iniciarSalto();
+        }
+
+        iniciarSalto();
     </script>
 </body>
 </html>

@@ -3,6 +3,28 @@
 
 <body>
 Esta pagina ha sido cambiada a otra con otro nombre. Gracias.
+  <title>Cucaracha Animada</title>
+<style>
+  .cucaracha {
+    position: relative;
+    width: 50px; /* Ajusta según el tamaño de tu imagen */
+    height: 50px; /* Ajusta según el tamaño de tu imagen */
+    background-image: url('cucaracha.png'); /* Reemplaza con la ruta de tu imagen */
+    background-size: cover;
+    animation: mover 5s linear infinite; /* Nombre de la animación, duración y repetición */
+  }
+
+  @keyframes mover {
+    0% { left: 0; }
+    50% { left: 200px; } /* Cambia el valor para ajustar la distancia */
+    100% { left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cucaracha"></div>
 </body>
 </html>
+
 

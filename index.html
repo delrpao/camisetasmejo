@@ -58,13 +58,13 @@
         <button id="opcion2" onclick="elegir(2)" style="width: 48%; padding: 10px; margin: 1%; font-size: 16px; border-radius: 5px; background-color: #9C27B0; color: white;">Opción 2</button>
     </section>
 
-    <!-- Juego 6: Salta el Bloque -->
+    <!-- Juego 6: Reacción Rápida -->
     <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #3F51B5; border-radius: 10px;">
-        <h2>🏃‍♂️ Salta el Bloque</h2>
-        <p>Toca la pantalla o el bloque azul para saltar y evita chocar. ¡Supera tu récord!</p>
-        <p>Puntuación: <span id="score">0</span></p>
-        <div id="gameArea" style="position: relative; width: 300px; height: 400px; margin: auto; background-color: #e0e0e0; overflow: hidden; border-radius: 10px; border: 2px solid #3F51B5;"></div>
-        <button onclick="reiniciarSalto()" style="margin-top: 10px; padding: 10px 20px; font-size: 16px;">Reiniciar Juego</button>
+        <h2>⚡ Reacción Rápida</h2>
+        <p>Toca el círculo que aparece antes de que desaparezca. ¡Supera tu récord!</p>
+        <p>Puntuación: <span id="reactionScore">0</span></p>
+        <div id="reactionGame" style="position: relative; width: 300px; height: 400px; margin: auto; background-color: #e0e0e0; border-radius: 10px; border: 2px solid #3F51B5; overflow: hidden;"></div>
+        <button onclick="iniciarReaccion()" style="margin-top: 10px; padding: 10px 20px; font-size: 16px;">Reiniciar Juego</button>
     </section>
 
     <script>
@@ -179,100 +179,27 @@
         }
         document.getElementById('historia').textContent = "Empieza tu aventura: elige la primera opción.";
 
-        // --------------------- Juego 6: Salta el Bloque ---------------------
-        const gameArea = document.getElementById('gameArea');
-        const scoreDisplay = document.getElementById('score');
+        // --------------------- Juego 6: Reacción Rápida ---------------------
+        const reactionGame = document.getElementById('reactionGame');
+        const reactionScore = document.getElementById('reactionScore');
+        let reactionCurrentScore = 0;
+        let reactionCircle, reactionTimeout;
 
-        let player, obstacle;
-        let score = 0;
-        let gameOver = false;
-        let obstacleSpeed = 4;
-        let gravity = 0.8;
-        let jumpForce = -12;
-        let playerY = 0;
-        let playerVelocity = 0;
+        function crearCirculo() {
+            if (reactionCircle) reactionGame.removeChild(reactionCircle);
 
-        function iniciarSalto() {
-            gameArea.innerHTML = '';
-            score = 0;
-            gameOver = false;
-            obstacleSpeed = 4;
-            playerY = 0;
-            playerVelocity = 0;
-            scoreDisplay.textContent = score;
+            reactionCircle = document.createElement('div');
+            reactionCircle.style.width = '50px';
+            reactionCircle.style.height = '50px';
+            reactionCircle.style.backgroundColor = 'red';
+            reactionCircle.style.borderRadius = '50%';
+            reactionCircle.style.position = 'absolute';
+            reactionCircle.style.top = Math.random() * (reactionGame.clientHeight - 50) + 'px';
+            reactionCircle.style.left = Math.random() * (reactionGame.clientWidth - 50) + 'px';
+            reactionGame.appendChild(reactionCircle);
 
-            // Crear jugador
-            player = document.createElement('div');
-            player.style.width = '50px';
-            player.style.height = '50px';
-            player.style.backgroundColor = 'green';
-            player.style.position = 'absolute';
-            player.style.bottom = '0px';
-            player.style.left = '50px';
-            player.style.borderRadius = '5px';
-            gameArea.appendChild(player);
-
-            // Crear obstáculo
-            obstacle = document.createElement('div');
-            obstacle.style.width = '50px';
-            obstacle.style.height = '50px';
-            obstacle.style.backgroundColor = 'blue';
-            obstacle.style.position = 'absolute';
-            obstacle.style.bottom = '0px';
-            obstacle.style.left = gameArea.clientWidth + 'px';
-            obstacle.style.borderRadius = '5px';
-            gameArea.appendChild(obstacle);
-
-            requestAnimationFrame(juegoLoop);
-
-            // Salto al tocar
-            gameArea.addEventListener('click', saltar);
-            gameArea.addEventListener('touchstart', saltar);
-        }
-
-        function saltar() {
-            if (!gameOver && playerY === 0) {
-                playerVelocity = jumpForce;
-            }
-        }
-
-        function juegoLoop() {
-            if (gameOver) return;
-
-            // Movimiento jugador
-            playerVelocity += gravity;
-            playerY += playerVelocity;
-            if (playerY < 0) {
-                playerY = 0;
-                playerVelocity = 0;
-            }
-            player.style.bottom = playerY + 'px';
-
-            // Movimiento obstáculo
-            let obstacleX = parseInt(obstacle.style.left);
-            obstacleX -= obstacleSpeed;
-            if (obstacleX + 50 < 0) {
-                obstacleX = gameArea.clientWidth;
-                score++;
-                scoreDisplay.textContent = score;
-                if (score % 5 === 0) obstacleSpeed += 1;
-            }
-            obstacle.style.left = obstacleX + 'px';
-
-            // Colisión
-            if (obstacleX < 100 && obstacleX + 50 > 50 && playerY < 50) {
-                gameOver = true;
-                alert('💥 ¡Chocaste! Puntuación final: ' + score);
-            }
-
-            requestAnimationFrame(juegoLoop);
-        }
-
-        function reiniciarSalto() {
-            iniciarSalto();
-        }
-
-        iniciarSalto();
-    </script>
-</body>
-</html>
+            reactionCircle.addEventListener('click', () => {
+                reactionCurrentScore++;
+                reactionScore.textContent = reactionCurrentScore;
+                clearTimeout(reactionTimeout);
+                crearCirculo

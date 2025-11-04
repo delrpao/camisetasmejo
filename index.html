@@ -2,18 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title> Esta pagina ha cambiado a otra pagina asique juega a Adivinar el Número</title>
+    <title>Mini Juegos</title>
 </head>
 <body>
-    <h1>🎲 Juego de Adivinar el Número</h1>
-    <p>Ingresa un número entre 1 y 10:</p>
+    <h2>Ahora esta página es para jugar! 🎉</h2>
+    <h1>🎮 Mini Juegos</h1>
 
-    <input type="number" id="numero" min="1" max="10">
-    <button onclick="adivinar()">Adivinar</button>
+    <!-- Juego 1: Adivinar el Número -->
+    <section>
+        <h2>🎲 Adivina el Número</h2>
+        <p>Ingresa un número entre 1 y 10:</p>
+        <input type="number" id="numero" min="1" max="10">
+        <button onclick="adivinar()">Adivinar</button>
+        <p id="mensaje"></p>
+    </section>
 
-    <p id="mensaje"></p>
+    <hr>
+
+    <!-- Juego 2: Piedra, Papel o Tijeras -->
+    <section>
+        <h2>✊ Piedra, 🖐 Papel, ✌ Tijeras</h2>
+        <p>Elige tu jugada:</p>
+        <button onclick="jugar('piedra')">✊ Piedra</button>
+        <button onclick="jugar('papel')">🖐 Papel</button>
+        <button onclick="jugar('tijeras')">✌ Tijeras</button>
+        <p id="resultado"></p>
+    </section>
 
     <script>
+        // Juego 1: Adivinar el Número
         const numeroSecreto = Math.floor(Math.random() * 10) + 1;
 
         function adivinar() {
@@ -33,6 +50,27 @@
             } else {
                 mensaje.textContent = "⬇️ Intenta un número más bajo.";
             }
+        }
+
+        // Juego 2: Piedra, Papel o Tijeras
+        function jugar(eleccionJugador) {
+            const opciones = ['piedra', 'papel', 'tijeras'];
+            const eleccionComputadora = opciones[Math.floor(Math.random() * 3)];
+            let resultadoTexto = `Tú elegiste ${eleccionJugador}, la computadora eligió ${eleccionComputadora}. `;
+
+            if (eleccionJugador === eleccionComputadora) {
+                resultadoTexto += "😐 Empate.";
+            } else if (
+                (eleccionJugador === 'piedra' && eleccionComputadora === 'tijeras') ||
+                (eleccionJugador === 'papel' && eleccionComputadora === 'piedra') ||
+                (eleccionJugador === 'tijeras' && eleccionComputadora === 'papel')
+            ) {
+                resultadoTexto += "🎉 ¡Ganaste!";
+            } else {
+                resultadoTexto += "💻 ¡Perdiste!";
+            }
+
+            document.getElementById('resultado').textContent = resultadoTexto;
         }
     </script>
 </body>

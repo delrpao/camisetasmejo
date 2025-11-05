@@ -62,7 +62,7 @@ function adivinar() {
     const valor = parseInt(input.value);
     const mensaje = document.getElementById('mensaje');
     if(isNaN(valor)||valor<1||valor>10){mensaje.textContent="❌ Número inválido"; return;}
-    if(valor===numeroSecreto){mensaje.textContent="🎉 ¡Correcto!"; numeroSecreto = Math.floor(Math.random()*10)+1;}
+    if(valor===numeroSecreto){mensaje.textContent="🎉 ¡Correcto polla vieja!"; numeroSecreto = Math.floor(Math.random()*10)+1;}
     else if(valor<numeroSecreto){mensaje.textContent="⬆️ Más alto"}
     else{mensaje.textContent="⬇️ Más bajo"}
 }
@@ -237,7 +237,7 @@ function tontoClick() {
     intentos++;
     const msg = document.getElementById('mensajeTonto');
     if(intentos<5) msg.textContent=`Has pulsado ${intentos} veces`;
-    else msg.textContent="😂 Ya no funciona!";
+    else msg.textContent="ERES UN MARICON!";
 }
 
 // -------- Juego 5: Ruleta Casino --------
@@ -1905,3 +1905,4 @@ function calcCalcularFuego(){
         calcExpFuego = "";
     }
 }
+

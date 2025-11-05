@@ -1,125 +1,115 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Mini Juegos para Móvil</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Juegos para Móvil</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-  <header>
-    <h2>Ahora esta página es para jugar! 🎉</h2>
-    <h1>🎮 Mini Juegos</h1>
-  </header>
+<h1>🎮 Ahora esta página es para jugar! 🎉</h1>
 
-  <!-- MENÚ PRINCIPAL -->
-  <section id="menu" class="menu">
-    <h2>Elige un juego:</h2>
-    <button onclick="mostrarJuego('num')">🎲 Adivina el Número</button>
-    <button onclick="mostrarJuego('ppt')">✊ Piedra, Papel o Tijeras</button>
-    <button onclick="mostrarJuego('trivia')">🧠 Trivia</button>
-    <button onclick="mostrarJuego('tonto')">🤣 Botón Tontorrón</button>
-    <button onclick="mostrarJuego('caballo')">🐴 Caballo Ganador</button>
-    <button onclick="mostrarJuego('ruleta')">🎡 Ruleta</button>
-    <button onclick="mostrarJuego('memoria')">🧩 Memoria Express</button>
-    <button onclick="mostrarJuego('reaccion')">🏆 Reacción Rápida</button>
-  </section>
+<div class="menu">
+    <button onclick="mostrarJuego('adivina')">Adivina el Número</button>
+    <button onclick="mostrarJuego('ppt')">Piedra, Papel o Tijeras</button>
+    <button onclick="mostrarJuego('trivia')">Trivia</button>
+    <button onclick="mostrarJuego('tontorrón')">Botón Tontorrón</button>
+    <button onclick="mostrarJuego('caballos')">Apostar al Caballo</button>
+    <button onclick="mostrarJuego('ruleta')">Ruleta</button>
+    <button onclick="mostrarJuego('ninja')">Reflejos Ninja</button>
+    <button onclick="mostrarJuego('blanco')">Tiro al Blanco</button>
+    <button onclick="mostrarJuego('diamantes')">Atrapa Diamantes</button>
+    <button onclick="mostrarJuego('meteoro')">Esquiva Meteoro</button>
+    <button onclick="mostrarJuego('burger')">Burger Builder</button>
+    <button onclick="mostrarJuego('bomba')">Desactiva la Bomba</button>
+</div>
 
-  <!-- Secciones de juegos -->
-  <main>
-    <!-- Adivina -->
-    <section id="num" class="juego">
-      <h2>🎲 Adivina el Número</h2>
-      <input type="number" id="numero" min="1" max="10" placeholder="Del 1 al 10">
-      <button onclick="adivinar()">Adivinar</button>
-      <p id="mensaje"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<!-- JUEGOS ANTERIORES -->
+<section id="adivina">
+    <h2>🎲 Adivina el Número</h2>
+    <input type="number" id="numero" min="1" max="10" placeholder="1-10">
+    <button onclick="adivinar()">Adivinar</button>
+    <p id="mensaje"></p>
+</section>
 
-    <!-- Piedra Papel Tijeras -->
-    <section id="ppt" class="juego">
-      <h2>✊ Piedra, Papel o Tijeras</h2>
-      <div class="opciones">
-        <button onclick="jugar('piedra')">✊</button>
-        <button onclick="jugar('papel')">🖐</button>
-        <button onclick="jugar('tijeras')">✌</button>
-      </div>
-      <p id="resultado"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<section id="ppt">
+    <h2>✊ Piedra, 🖐 Papel, ✌ Tijeras</h2>
+    <button onclick="jugar('piedra')">✊ Piedra</button>
+    <button onclick="jugar('papel')">🖐 Papel</button>
+    <button onclick="jugar('tijeras')">✌ Tijeras</button>
+    <p id="resultado"></p>
+</section>
 
-    <!-- Trivia -->
-    <section id="trivia" class="juego">
-      <h2>🧠 Trivia Difícil</h2>
-      <p id="pregunta"></p>
-      <input type="text" id="respuesta" placeholder="Tu respuesta...">
-      <button onclick="verificarRespuesta()">Responder</button>
-      <p id="mensajeTrivia"></p>
-      <p>Puntos: <span id="puntos">0</span></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<section id="trivia">
+    <h2>🧠 Trivia Rápida</h2>
+    <p id="pregunta"></p>
+    <input type="text" id="respuesta" placeholder="Escribe tu respuesta">
+    <button onclick="verificarRespuesta()">Responder</button>
+    <p id="mensajeTrivia"></p>
+    <p>Puntos: <span id="puntos">0</span></p>
+</section>
 
-    <!-- Botón tontorrón -->
-    <section id="tonto" class="juego">
-      <h2>🤣 Botón Tontorrón</h2>
-      <p>¡Atrápame si puedes!</p>
-      <div class="zona-tonto">
-        <button id="botonTonto">Atrápame</button>
-      </div>
-      <p>Intentos: <span id="intentos">0</span></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<section id="tontorrón" style="position: relative; height: 200px;">
+    <h2>🤣 Botón Tontorrón</h2>
+    <button id="botonTonto">Atrápame</button>
+    <p>Intentos: <span id="intentos">0</span></p>
+</section>
 
-    <!-- Caballo -->
-    <section id="caballo" class="juego">
-      <h2>🐴 Apuesta al Caballo Ganador</h2>
-      <select id="caballoElegido">
-        <option value="1">Caballo 1 🐎</option>
-        <option value="2">Caballo 2 🐎</option>
-        <option value="3">Caballo 3 🐎</option>
-      </select>
-      <button onclick="empezarCaballos()">Apostar y correr</button>
-      <div id="pistaCaballos">
-        <div id="cab1">🐎</div>
-        <div id="cab2">🐎</div>
-        <div id="cab3">🐎</div>
-      </div>
-      <p id="mensajeCaballo"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<section id="caballos">
+    <h2>🏇 Apuesta al Caballo Ganador</h2>
+    <button onclick="apostar(1)">Caballo 1</button>
+    <button onclick="apostar(2)">Caballo 2</button>
+    <button onclick="apostar(3)">Caballo 3</button>
+    <p id="resultadoCaballos"></p>
+</section>
 
-    <!-- Ruleta -->
-    <section id="ruleta" class="juego">
-      <h2>🎡 Ruleta</h2>
-      <select id="apuestaColor">
-        <option value="rojo">🔴 Rojo</option>
-        <option value="negro">⚫ Negro</option>
-        <option value="verde">🟢 Verde</option>
-      </select>
-      <button onclick="girarRuleta()">Girar</button>
-      <p id="resultadoRuleta"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<section id="ruleta">
+    <h2>🎡 Ruleta de Colores</h2>
+    <button onclick="girar('rojo')">Rojo</button>
+    <button onclick="girar('negro')">Negro</button>
+    <button onclick="girar('verde')">Verde</button>
+    <p id="resultadoRuleta"></p>
+</section>
 
-    <!-- Memoria -->
-    <section id="memoria" class="juego">
-      <h2>🧩 Memoria Express</h2>
-      <div id="tableroMemoria"></div>
-      <p id="mensajeMemoria"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
+<!-- NUEVOS JUEGOS -->
+<section id="ninja">
+    <h2>⚔️ Reflejos Ninja</h2>
+    <p>Toca los cuadrados verdes lo más rápido posible</p>
+    <div id="cuadrados" class="cuadrados"></div>
+    <p>Puntos: <span id="puntosNinja">0</span></p>
+</section>
 
-    <!-- Reacción -->
-    <section id="reaccion" class="juego">
-      <h2>🏆 Reacción Rápida</h2>
-      <p>Cuando el botón se ponga verde, ¡toca rápido!</p>
-      <button id="botonReaccion">Espera...</button>
-      <p id="resultadoReaccion"></p>
-      <button class="volver" onclick="volverMenu()">🔙 Volver</button>
-    </section>
-  </main>
+<section id="blanco">
+    <h2>🏹 Tiro al Blanco</h2>
+    <canvas id="canvasBlanco" width="300" height="300"></canvas>
+    <p>Puntos: <span id="puntosBlanco">0</span></p>
+</section>
 
-  <script src="script.js"></script>
+<section id="diamantes">
+    <h2>💎 Atrapa los Diamantes</h2>
+    <canvas id="canvasDiamantes" width="300" height="400"></canvas>
+    <p>Puntos: <span id="puntosDiamantes">0</span></p>
+</section>
+
+<section id="meteoro">
+    <h2>🚀 Esquiva el Meteoro</h2>
+    <canvas id="canvasMeteoro" width="300" height="400"></canvas>
+    <p>Puntos: <span id="puntosMeteoro">0</span></p>
+</section>
+
+<section id="burger">
+    <h2>🍔 Burger Builder</h2>
+    <canvas id="canvasBurger" width="300" height="400"></canvas>
+    <p>Puntos: <span id="puntosBurger">0</span></p>
+</section>
+
+<section id="bomba">
+    <h2>💣 Desactiva la Bomba</h2>
+    <button id="botonBomba">Toca rápido!</button>
+    <p>Puntos: <span id="puntosBomba">0</span></p>
+</section>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -3,224 +3,232 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎮 Mini Juegos Divertidos</title>
+  <title>Mini Juegos para Móvil</title>
 </head>
-<body style="font-family: Arial; margin:10px;">
+<body style="font-family: Arial, sans-serif; margin: 10px; padding: 0;">
 
-<h1 style="text-align:center; color:darkblue;">🎉 Zona de Mini Juegos 🎉</h1>
+  <h2 style="text-align: center; color: darkblue;">Ahora esta página es para jugar! 🎉</h2>
+  <h1 style="text-align: center;">🎮 Mini Juegos</h1>
 
-<!-- Juego 1: Adivinar el Número -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #4CAF50; border-radius:10px;">
-  <h2>🎲 Adivina el Número</h2>
-  <input type="number" id="numero" min="1" max="10" style="width:100%;padding:8px;font-size:16px;">
-  <button onclick="adivinar()" style="width:100%;padding:10px;background:#4CAF50;color:#fff;border:none;border-radius:5px;margin-top:5px;">Adivinar</button>
-  <p id="mensaje" style="font-weight:bold;"></p>
-</section>
+  <!-- Juego 1: Adivinar el Número -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #4CAF50; border-radius: 10px;">
+    <h2>🎲 Adivina el Número</h2>
+    <p>Ingresa un número entre 1 y 10:</p>
+    <input type="number" id="numero" min="1" max="10" style="width: 100%; padding: 8px; font-size: 16px;">
+    <button onclick="adivinar()" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; background-color: #4CAF50; color: white; border: none; border-radius: 5px;">Adivinar</button>
+    <p id="mensaje" style="font-weight: bold;"></p>
+  </section>
 
-<!-- Juego 2: Piedra, Papel o Tijeras -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #f44336; border-radius:10px;">
-  <h2>✊ Piedra, 🖐 Papel, ✌ Tijeras</h2>
-  <div style="display:flex;justify-content:space-around;">
-    <button onclick="jugar('piedra')">✊</button>
-    <button onclick="jugar('papel')">🖐</button>
-    <button onclick="jugar('tijeras')">✌</button>
-  </div>
-  <p id="resultado" style="font-weight:bold;"></p>
-</section>
+  <!-- Juego 2: Piedra, Papel o Tijeras -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #f44336; border-radius: 10px;">
+    <h2>✊ Piedra, 🖐 Papel, ✌ Tijeras</h2>
+    <p>Elige tu jugada:</p>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+      <button onclick="jugar('piedra')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">✊ Piedra</button>
+      <button onclick="jugar('papel')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">🖐 Papel</button>
+      <button onclick="jugar('tijeras')" style="flex: 1; margin: 5px; padding: 10px; font-size: 16px;">✌ Tijeras</button>
+    </div>
+    <p id="resultado" style="font-weight: bold;"></p>
+  </section>
 
-<!-- Juego 3: Trivia -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #2196F3; border-radius:10px;">
-  <h2>🧠 Trivia Difícil</h2>
-  <p id="pregunta" style="font-weight:bold;"></p>
-  <input type="text" id="respuesta" placeholder="Tu respuesta..." style="width:100%;padding:8px;">
-  <button onclick="verificarRespuesta()" style="width:100%;padding:10px;margin-top:5px;background:#2196F3;color:white;border:none;border-radius:5px;">Responder</button>
-  <p id="mensajeTrivia"></p>
-  <p>Puntos: <span id="puntos">0</span></p>
-</section>
+  <!-- Juego 3: Trivia -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #2196F3; border-radius: 10px;">
+    <h2>🧠 Trivia Rápida</h2>
+    <p id="pregunta" style="font-weight: bold;"></p>
+    <input type="text" id="respuesta" placeholder="Escribe tu respuesta aquí" style="width: 100%; padding: 8px; font-size: 16px;">
+    <button onclick="verificarRespuesta()" style="width: 100%; padding: 10px; margin-top: 5px; font-size: 16px; background-color: #2196F3; color: white; border: none; border-radius: 5px;">Responder</button>
+    <p id="mensajeTrivia" style="font-weight: bold;"></p>
+    <p>Puntos: <span id="puntos">0</span></p>
+  </section>
 
-<!-- Juego 4: Click Rápido -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #FF9800; border-radius:10px;">
-  <h2>🖱️ Click Rápido</h2>
-  <button onclick="sumarClick()" style="width:100%;padding:15px;font-size:18px;background:#FF9800;color:white;border:none;border-radius:5px;">¡Click!</button>
-  <p>Clicks: <span id="clicks">0</span></p>
-  <button onclick="reiniciarClick()" style="width:100%;padding:10px;">Reiniciar</button>
-</section>
+  <!-- Juego 5: Botón Tontorrón -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #FF5722; border-radius: 10px; position: relative; height: 200px;">
+    <h2>🤣 Botón Tontorrón</h2>
+    <p>Intenta hacer clic en el botón... ¡Se mueve!</p>
+    <button id="botonTonto" style="position: absolute; padding: 10px 15px; background-color: #FF5722; color: white; border: none; border-radius: 5px;">Atrápame</button>
+    <p>Intentos: <span id="intentos">0</span></p>
+  </section>
 
-<!-- Juego 5: Botón Tontorrón -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #FF5722; border-radius:10px; position:relative; height:200px;">
-  <h2>🤣 Botón Tontorrón</h2>
-  <p>¡Trata de tocarme!</p>
-  <button id="botonTonto" style="position:absolute;padding:10px 15px;background:#FF5722;color:white;border:none;border-radius:5px;">Atrápame</button>
-  <p>Intentos: <span id="intentos">0</span></p>
-</section>
+  <!-- NUEVO Juego 6: Rompe el Globo -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #9C27B0; border-radius: 10px; position: relative; height: 220px; overflow: hidden;">
+    <h2>🎈 Rompe el Globo</h2>
+    <p>Toca los globos antes de que desaparezcan:</p>
+    <p>Puntos: <span id="globosPuntos">0</span></p>
+    <button onclick="empezarGlobos()" style="width:100%;padding:8px;">Empezar</button>
+    <div id="globosArea" style="position:relative;height:150px;"></div>
+  </section>
 
-<!-- 🎯 Juego 6: Encuentra el Emoji -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #9C27B0; border-radius:10px;">
-  <h2>🎯 Encuentra el Emoji</h2>
-  <p>Encuentra el 🎁 oculto entre los emojis:</p>
-  <div id="emojiGrid" style="display:grid;grid-template-columns:repeat(5,1fr);gap:5px;font-size:25px;text-align:center;"></div>
-  <p id="mensajeEmoji" style="font-weight:bold;"></p>
-</section>
+  <!-- NUEVO Juego 7: Sigue el Color -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #00BCD4; border-radius: 10px;">
+    <h2>🎨 Sigue el Color</h2>
+    <p>Memoriza la secuencia de colores:</p>
+    <div style="display:flex;justify-content:space-around;margin:5px;">
+      <div class="color" id="rojo" style="background:red;width:60px;height:60px;border-radius:10px;" onclick="elegirColor('rojo')"></div>
+      <div class="color" id="azul" style="background:blue;width:60px;height:60px;border-radius:10px;" onclick="elegirColor('azul')"></div>
+      <div class="color" id="verde" style="background:green;width:60px;height:60px;border-radius:10px;" onclick="elegirColor('verde')"></div>
+      <div class="color" id="amarillo" style="background:gold;width:60px;height:60px;border-radius:10px;" onclick="elegirColor('amarillo')"></div>
+    </div>
+    <button onclick="empezarColor()" style="width:100%;padding:8px;">Iniciar Secuencia</button>
+    <p id="mensajeColor" style="font-weight:bold;"></p>
+  </section>
 
-<!-- 🧩 Juego 7: Memoria de Emojis -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #00BCD4; border-radius:10px;">
-  <h2>🧩 Memoria</h2>
-  <p>Encuentra las parejas iguales:</p>
-  <div id="memoria" style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;text-align:center;"></div>
-  <p id="mensajeMemoria" style="font-weight:bold;"></p>
-</section>
+  <!-- NUEVO Juego 8: Carrera de Cohetes -->
+  <section style="margin-bottom: 20px; padding: 10px; border: 2px solid #8BC34A; border-radius: 10px; height:180px; position:relative;">
+    <h2>🚀 Carrera de Cohetes</h2>
+    <p>Pulsa "Correr" y mira quién gana:</p>
+    <div id="pista" style="position:relative;height:100px;background:#e0e0e0;border-radius:10px;">
+      <div id="coheteJugador" style="position:absolute;left:0;top:20px;">🚀</div>
+      <div id="cohetePc" style="position:absolute;left:0;top:60px;">🛰️</div>
+    </div>
+    <button onclick="empezarCarrera()" style="width:100%;margin-top:8px;">Correr</button>
+    <p id="mensajeCarrera" style="font-weight:bold;"></p>
+  </section>
 
-<!-- 🏃 Juego 8: Botón Rápido -->
-<section style="margin-bottom:20px; padding:10px; border:2px solid #8BC34A; border-radius:10px; position:relative;height:180px;">
-  <h2>🏃‍♂️ Corre el Botón</h2>
-  <p>¡Tócalo antes de que se mueva!</p>
-  <button id="botonRapido" style="position:absolute;padding:10px 15px;background:#8BC34A;color:white;border:none;border-radius:5px;">¡Tócame!</button>
-  <p>Toques: <span id="toques">0</span></p>
-</section>
-
-<script>
-/* ========== Juego 1 ========== */
-let numeroSecreto = Math.floor(Math.random()*10)+1;
-function adivinar(){
-  const n=parseInt(document.getElementById('numero').value);
-  const msg=document.getElementById('mensaje');
-  if(n===numeroSecreto){msg.textContent="🎉 ¡Acertaste!";numeroSecreto=Math.floor(Math.random()*10)+1;}
-  else if(n<numeroSecreto){msg.textContent="⬆️ Más alto";}
-  else{msg.textContent="⬇️ Más bajo";}
-}
-
-/* ========== Juego 2 ========== */
-function jugar(j){
-  const opciones=['piedra','papel','tijeras'];
-  const c=opciones[Math.floor(Math.random()*3)];
-  let res="Tú: "+j+" | PC: "+c+" → ";
-  if(j===c)res+="😐 Empate";
-  else if((j==='piedra'&&c==='tijeras')||(j==='papel'&&c==='piedra')||(j==='tijeras'&&c==='papel'))res+="🎉 ¡Ganaste!";
-  else res+="💻 Perdiste";
-  document.getElementById('resultado').textContent=res;
-}
-
-/* ========== Juego 3 (Trivia difícil) ========== */
-const preguntas=[
-  {q:"¿Capital de Canadá?",a:"ottawa"},
-  {q:"¿En qué año cayó el Imperio Romano de Occidente?",a:"476"},
-  {q:"¿Elemento químico con símbolo O?",a:"oxígeno"},
-  {q:"¿Cuántos huesos tiene el cuerpo humano adulto?",a:"206"},
-  {q:"¿Quién escribió 'Don Quijote'?",a:"miguel de cervantes"}
-];
-let puntos=0,preguntaActual=0;
-function verificarRespuesta(){
-  const r=document.getElementById('respuesta').value.toLowerCase();
-  const msg=document.getElementById('mensajeTrivia');
-  if(r===preguntas[preguntaActual].a){puntos++;msg.textContent="✅ Correcto";}
-  else msg.textContent="❌ Era: "+preguntas[preguntaActual].a;
-  document.getElementById('puntos').textContent=puntos;
-  preguntaActual++;
-  if(preguntaActual<preguntas.length){
-    document.getElementById('pregunta').textContent=preguntas[preguntaActual].q;
-    document.getElementById('respuesta').value="";
-  } else document.getElementById('pregunta').textContent="¡Terminaste la trivia!";
-}
-document.getElementById('pregunta').textContent=preguntas[preguntaActual].q;
-
-/* ========== Juego 4 ========== */
-let clicks=0;
-function sumarClick(){clicks++;document.getElementById('clicks').textContent=clicks;}
-function reiniciarClick(){clicks=0;document.getElementById('clicks').textContent=clicks;}
-
-/* ========== Juego 5 ========== */
-const tonto=document.getElementById('botonTonto');
-let intentos=0;
-function moverBoton(){
-  intentos++;
-  document.getElementById('intentos').textContent=intentos;
-  const maxX=window.innerWidth-tonto.offsetWidth-20;
-  const maxY=180-tonto.offsetHeight;
-  tonto.style.left=Math.random()*maxX+"px";
-  tonto.style.top=Math.random()*maxY+"px";
-}
-tonto.addEventListener('mouseenter',moverBoton);
-tonto.addEventListener('touchstart',moverBoton);
-
-/* ========== Juego 6: Encuentra el Emoji 🎯 ========== */
-const emojiGrid=document.getElementById('emojiGrid');
-function generarEmojis(){
-  emojiGrid.innerHTML="";
-  const emojis=['😀','🐶','🍎','🌵','🚗','🎈','🎁','🍕','🐱','🍀','⚽','🦋','🔥','💎','🎵','🎂','🐸','🌈','🚀','🍩'];
-  const posSecreto=Math.floor(Math.random()*25);
-  for(let i=0;i<25;i++){
-    const e=document.createElement('span');
-    e.textContent=emojis[Math.floor(Math.random()*emojis.length)];
-    e.style.cursor='pointer';
-    e.onclick=()=>verificarEmoji(i,posSecreto);
-    emojiGrid.appendChild(e);
+  <script>
+  // === Juego 1: Adivinar el número ===
+  let numeroSecreto = Math.floor(Math.random()*10)+1;
+  function adivinar(){
+    const valor=parseInt(document.getElementById('numero').value);
+    const m=document.getElementById('mensaje');
+    if(isNaN(valor)||valor<1||valor>10){m.textContent="❌ Ingresa un número válido.";return;}
+    if(valor===numeroSecreto){m.textContent="🎉 ¡Correcto!";numeroSecreto=Math.floor(Math.random()*10)+1;}
+    else if(valor<numeroSecreto){m.textContent="⬆️ Más alto";}
+    else{m.textContent="⬇️ Más bajo";}
   }
-}
-function verificarEmoji(i,pos){
-  const msg=document.getElementById('mensajeEmoji');
-  if(i===pos){msg.textContent="🎉 ¡Encontraste el regalo!";generarEmojis();}
-  else msg.textContent="❌ No está ahí...";
-}
-generarEmojis();
 
-/* ========== Juego 7: Memoria 🧩 ========== */
-const memoria=document.getElementById('memoria');
-let emojis=['🐶','🐱','🍕','🍩','🎈','🚗'];
-emojis=[...emojis,...emojis].sort(()=>0.5-Math.random());
-let seleccion=[];
-function crearMemoria(){
-  memoria.innerHTML="";
-  emojis.forEach((em,i)=>{
-    const btn=document.createElement('button');
-    btn.textContent="❓";
-    btn.style.fontSize='24px';
-    btn.style.padding='5px';
-    btn.onclick=()=>revelar(i,btn);
-    memoria.appendChild(btn);
-  });
-}
-let encontrados=0;
-function revelar(i,btn){
-  if(seleccion.length<2){
-    btn.textContent=emojis[i];
-    seleccion.push({i,btn});
-    if(seleccion.length===2){
-      if(emojis[seleccion[0].i]===emojis[seleccion[1].i]){
-        encontrados++;
-        seleccion=[];
-        if(encontrados===6)document.getElementById('mensajeMemoria').textContent="🎉 ¡Completado!";
-      }else{
-        setTimeout(()=>{
-          seleccion[0].btn.textContent="❓";
-          seleccion[1].btn.textContent="❓";
-          seleccion=[];
-        },600);
-      }
+  // === Juego 2: Piedra, Papel o Tijeras ===
+  function jugar(j){
+    const opciones=['piedra','papel','tijeras'];
+    const c=opciones[Math.floor(Math.random()*3)];
+    let r=`Tú: ${j} | PC: ${c} → `;
+    if(j===c)r+="😐 Empate";
+    else if((j==='piedra'&&c==='tijeras')||(j==='papel'&&c==='piedra')||(j==='tijeras'&&c==='papel'))r+="🎉 ¡Ganaste!";
+    else r+="💻 Perdiste";
+    document.getElementById('resultado').textContent=r;
+  }
+
+  // === Juego 3: Trivia ===
+  const preguntas=[
+    {q:"¿Capital de Canadá?",a:"ottawa"},
+    {q:"¿Quién pintó la Mona Lisa?",a:"leonardo da vinci"},
+    {q:"¿Elemento químico con símbolo Au?",a:"oro"},
+    {q:"¿Cuántos lados tiene un pentágono?",a:"5"},
+    {q:"¿Cuál es el planeta más cercano al Sol?",a:"mercurio"}
+  ];
+  let puntos=0,actual=0;
+  function verificarRespuesta(){
+    const r=document.getElementById('respuesta').value.toLowerCase();
+    const msg=document.getElementById('mensajeTrivia');
+    if(r===preguntas[actual].a){puntos++;msg.textContent="✅ Correcto";}
+    else msg.textContent="❌ Era: "+preguntas[actual].a;
+    document.getElementById('puntos').textContent=puntos;
+    actual++;
+    if(actual<preguntas.length){
+      document.getElementById('pregunta').textContent=preguntas[actual].q;
+      document.getElementById('respuesta').value="";
+    } else {
+      document.getElementById('pregunta').textContent="¡Terminaste la trivia!";
     }
   }
-}
-crearMemoria();
+  document.getElementById('pregunta').textContent=preguntas[actual].q;
 
-/* ========== Juego 8: Corre el Botón 🏃 ========== */
-const botonRapido=document.getElementById('botonRapido');
-let toques=0;
-function moverRapido(){
-  const maxX=window.innerWidth-botonRapido.offsetWidth-20;
-  const maxY=140-botonRapido.offsetHeight;
-  botonRapido.style.left=Math.random()*maxX+"px";
-  botonRapido.style.top=Math.random()*maxY+"px";
-}
-botonRapido.addEventListener('click',()=>{
-  toques++;
-  document.getElementById('toques').textContent=toques;
-  moverRapido();
-});
-botonRapido.addEventListener('touchstart',()=>{
-  toques++;
-  document.getElementById('toques').textContent=toques;
-  moverRapido();
-});
-</script>
+  // === Juego 5: Botón tontorrón ===
+  const boton=document.getElementById('botonTonto');
+  let intentos=0;
+  function mover(){
+    intentos++;
+    document.getElementById('intentos').textContent=intentos;
+    const maxX=window.innerWidth-boton.offsetWidth-20;
+    const maxY=150-boton.offsetHeight;
+    boton.style.left=Math.random()*maxX+"px";
+    boton.style.top=Math.random()*maxY+"px";
+  }
+  boton.addEventListener('mouseenter',mover);
+  boton.addEventListener('touchstart',mover);
+
+  // === Juego 6: Rompe el Globo ===
+  let puntosGlobos=0;
+  function empezarGlobos(){
+    const area=document.getElementById('globosArea');
+    area.innerHTML="";
+    puntosGlobos=0;
+    document.getElementById('globosPuntos').textContent=puntosGlobos;
+    for(let i=0;i<10;i++){
+      setTimeout(()=>{
+        const g=document.createElement('div');
+        g.textContent="🎈";
+        g.style.position="absolute";
+        g.style.left=Math.random()*90+"%";
+        g.style.bottom="0";
+        g.style.fontSize="30px";
+        g.style.cursor="pointer";
+        g.onclick=()=>{g.remove();puntosGlobos++;document.getElementById('globosPuntos').textContent=puntosGlobos;};
+        area.appendChild(g);
+        setTimeout(()=>{g.remove();},1500);
+      },i*800);
+    }
+  }
+
+  // === Juego 7: Sigue el Color ===
+  const colores=['rojo','azul','verde','amarillo'];
+  let secuencia=[],entrada=[],nivel=0;
+  function iluminar(c){
+    const div=document.getElementById(c);
+    div.style.opacity=0.5;
+    setTimeout(()=>div.style.opacity=1,300);
+  }
+  function mostrarSecuencia(){
+    let i=0;
+    const inter=setInterval(()=>{
+      iluminar(secuencia[i]);
+      i++;
+      if(i>=secuencia.length)clearInterval(inter);
+    },600);
+  }
+  function empezarColor(){
+    secuencia=[];entrada=[];nivel=1;
+    nuevoColor();
+  }
+  function nuevoColor(){
+    entrada=[];
+    secuencia.push(colores[Math.floor(Math.random()*4)]);
+    document.getElementById('mensajeColor').textContent="Nivel "+nivel;
+    mostrarSecuencia();
+  }
+  function elegirColor(c){
+    entrada.push(c);
+    iluminar(c);
+    if(entrada[entrada.length-1]!==secuencia[entrada.length-1]){
+      document.getElementById('mensajeColor').textContent="❌ Fallaste. Reinicia.";
+      nivel=0;secuencia=[];
+      return;
+    }
+    if(entrada.length===secuencia.length){
+      nivel++;
+      setTimeout(nuevoColor,700);
+    }
+  }
+
+  // === Juego 8: Carrera de Cohetes ===
+  function empezarCarrera(){
+    const j=document.getElementById('coheteJugador');
+    const pc=document.getElementById('cohetePc');
+    const msg=document.getElementById('mensajeCarrera');
+    msg.textContent="";
+    let posJ=0,posC=0;
+    const ancho=document.getElementById('pista').offsetWidth-40;
+    const carrera=setInterval(()=>{
+      posJ+=Math.random()*10;
+      posC+=Math.random()*10;
+      j.style.left=posJ+"px";
+      pc.style.left=posC+"px";
+      if(posJ>=ancho||posC>=ancho){
+        clearInterval(carrera);
+        msg.textContent=posJ>posC?"🎉 ¡Ganaste!":"💻 El PC ganó.";
+      }
+    },100);
+  }
+  </script>
 
 </body>
 </html>

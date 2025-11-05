@@ -1,0 +1,155 @@
+/* Global */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+}
+
+h1 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+nav#menu-juegos {
+    padding: 10px;
+    text-align: center;
+}
+
+nav#menu-juegos h2 {
+    margin: 8px 0;
+    font-size: 1.1em;
+}
+
+nav#menu-juegos button {
+    display: block;
+    margin: 8px auto;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2196F3;
+    color: white;
+    width: 85%;
+    max-width: 420px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+nav#menu-juegos button:hover {
+    background-color: #0b7dda;
+    cursor: pointer;
+}
+
+#juegos {
+    padding: 10px;
+}
+
+/* Card for each game */
+.juego {
+    display: none;
+    margin-bottom: 20px;
+    padding: 14px;
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+.juego[style*="display:block"] {
+    display: block;
+}
+
+.juego h2 {
+    text-align: center;
+    margin-top: 0;
+}
+
+.juego button {
+    margin: 8px 0;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4CAF50;
+    color: white;
+}
+
+.juego button:hover { opacity: 0.95; cursor:pointer; }
+
+#mensaje, #resultado, #mensajeTrivia, #mensajeMemoria {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Canvas default */
+canvas {
+    display:block;
+    margin: 0 auto;
+    background-color: #eee;
+    border-radius: 10px;
+    max-width:100%;
+    height:auto;
+}
+
+/* Snake controls */
+#controlesSnake {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    align-items:center;
+    margin-top:10px;
+    flex-wrap:wrap;
+}
+#controlesSnake button {
+    width:72px;
+    height:48px;
+    margin:4px;
+    background:#4CAF50;
+    color:white;
+    border-radius:8px;
+    font-size:18px;
+}
+
+/* Memory cards */
+.cartaMemoria {
+    user-select: none;
+    -webkit-user-select: none;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.12);
+}
+
+/* Pollo Travieso */
+#polloArea {
+    text-align:center;
+}
+#polloBtn {
+    font-size:20px;
+    padding:16px 20px;
+    background:#ff9800;
+    color:white;
+    border-radius:12px;
+    border:none;
+}
+
+/* Perro Galáctico */
+#perroCanvas { background:#000; border-radius:8px; }
+
+/* MateReto */
+#mateArea input[type="number"] {
+    width:80%;
+    padding:10px;
+    font-size:18px;
+    margin-top:8px;
+}
+
+/* Equilibrio Loco */
+#equilibrioArea { text-align:center; }
+#equilibrioCanvas { touch-action:none; }

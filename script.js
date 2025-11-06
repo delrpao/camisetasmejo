@@ -2678,7 +2678,7 @@ const banderas = [
     {pais:"Belice", url:"https://upload.wikimedia.org/wikipedia/commons/e/e7/Flag_of_Belize.svg", opcionesDificiles:["Belice","Guatemala","Honduras","Costa Rica"]},
     {pais:"Comoras", url:"https://upload.wikimedia.org/wikipedia/commons/9/94/Flag_of_the_Comoros.svg", opcionesDificiles:["Comoras","Maldivas","Seychelles","Mauricio"]},
     {pais:"Burundi", url:"https://upload.wikimedia.org/wikipedia/commons/5/50/Flag_of_Burundi.svg", opcionesDificiles:["Burundi","Ruanda","Uganda","Tanzania"]},
-    {pais:"San Vicente y las Granadinas", url:"https://upload.wikimedia.org/wikipedia/commons/f/f2/Flag_of_Saint_Vincent_and_the_Grenadines.svg", opcionesDificiles:["San Vicente y las Granadinas","Santa Lucía","Barbados","Granada"]}
+    {pais:"Santa Lucía", url:"https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Flag_of_Saint_Lucia.svg/1920px-Flag_of_Saint_Lucia.svg.png", opcionesDificiles:["San Vicente y las Granadinas","Santa Lucía","Barbados","Granada"]}
 ];
 
 // -------------------------------------------------
@@ -3111,3 +3111,4 @@ function distanciaLevenshtein(a, b) {
     }
     return dp[m][n];
 }
+

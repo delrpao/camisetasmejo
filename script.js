@@ -10,7 +10,7 @@ function abrirJuego(juego) {
         case 'ppt': pptHTML(); break;
         case 'trivia': triviaHTML(); break;
         case 'tontorrón': tontorronHTML(); break;
-        case 'ruleta': ruletaHTML(); break;
+        case 'ruleta2': ruleta2HTML(); break;
         case 'caballo': caballoHTML(); break;
         case 'reflejos': reflejosHTML(); break;
         case 'memoria': memoriaHTML(); break;
@@ -388,7 +388,7 @@ function tontoClick() {
 // -------- Juego 5: Ruleta Casino --------
 let saldo = 100;
 
-function ruletaHTML() {
+function ruleta2HTML() {
     main.innerHTML = `
     <div class="juego" style="display:block;">
         <h2>🎰 Ruleta Casino (Versión Europea Realista)</h2>
@@ -4389,3 +4389,4 @@ function finalizarJuego() {
     else ganador = '¡Empate!';
     document.getElementById('preguntaTexto').textContent = `🏆 Juego terminado! ${ganador}`;
 }
+

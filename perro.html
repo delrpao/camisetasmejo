@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🐶 Perro Espacial Mejorado</title>
+<style>
+body { margin:0; padding:0; background:#000; font-family:sans-serif; touch-action:none; }
+canvas { display:block; background:#111; margin-top:60px; }
+#score, #record { position:fixed; top:10px; left:50%; transform:translateX(-50%); color:#fff; font-size:20px; font-weight:bold; z-index:10; }
+#record { top:40px; font-size:16px; color:#ffd700; }
+#gameOver { position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); color:#ff3333; font-size:36px; font-weight:bold; display:none; text-align:center; z-index:10;}
+#backBtn { position:fixed; top:10px; left:10px; padding:10px 15px; font-size:16px; border-radius:8px; border:none; background:#3498db; color:#fff; cursor:pointer; z-index:10;}
+</style>
+</head>
+<body>
+
+<button id="backBtn" onclick="window.location.href='index.html'">⬅ Volver al menú</button>
+<div id="score">Puntos: 0</div>
+<div id="record">Récord: 0</div>
+<div id="gameOver">¡Perdiste!<br>Toque para reiniciar</div>
+
+<canvas id="gameCanvas"></canvas>
+
+<script>
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+let width = window.innerWidth;
+let height = window.innerHeight - 60; // margen superior
+canvas.width = width;
+canvas.height = height;
+
+// Perro
+const perro = {x: width/2, y: height-80, width:60, height:60, color:'#ff0'};
+
+// Balas
+const balas = [];
+
+// Meteoritos
+const meteoritos = [];
+let meteorSpeed = 2;
+
+// Puntos y estado
+let score = 0;
+let gameOver = false;
+let record = localStorage.getItem('record') || 0;
+
+// Actualizar marcador
+document.getElementById('record').textContent = "Récord: " + record;
+
+function dibujar(){
+    ctx.clearRect(0,0,width,height);
+    // Perro
+    ctx.fillStyle = perro.color;
+    ctx.fillRect(perro.x-perro.width/2, perro.y-perro.height/2, perro.width, perro.height);
+
+    // Balas
+    ctx.fillStyle = '#0ff';
+    balas.forEach(b => ctx.fillRect(b.x-5, b.y-20, 10, 20));
+
+    // Meteoritos
+    ctx.fillStyle = '#f33';
+    meteoritos.forEach(m=>{
+        ctx.beginPath();
+        ctx.arc(m.x, m.y, m.radius, 0, Math.PI*2);
+        ctx.fill();
+    });
+}
+
+function actualizar(){
+    // Mover balas
+    for(let i=balas.length-1;i>=0;i--){
+        let b = balas[i];
+        b.y -= b.speed;
+        // Colisión con meteoritos
+        for(let j=meteoritos.length-1;j>=0;j--){
+            let m = meteoritos[j];
+            const dx = b.x - m.x;
+            const dy = b.y - m.y;
+            if(Math.sqrt(dx*dx + dy*dy) < m.radius + 10){
+                balas.splice(i,1);
+                meteoritos.splice(j,1);
+                score++;
+                document.getElementById('score').textContent = "Puntos: " + score;
+                // Aumentar dificultad cada 5 puntos
+                if(score%5===0) meteorSpeed += 0.5;
+                return;
+            }
+        }
+        if(b.y < 0) balas.splice(i,1);
+    }
+
+    // Mover meteoritos
+    for(let i=meteoritos.length-1;i>=0;i--){
+        let m = meteoritos[i];
+        m.y += meteorSpeed;
+        const dx = m.x - perro.x;
+        const dy = m.y - perro.y;
+        if(Math.sqrt(dx*dx + dy*dy) < m.radius + perro.width/2){
+            gameOver = true;
+            document.getElementById('gameOver').style.display='block';
+            if(score > record){ 
+                record = score; 
+                localStorage.setItem('record', record);
+                document.getElementById('record').textContent = "Récord: " + record;
+            }
+        }
+        if(m.y > height + m.radius) meteoritos.splice(i,1);
+    }
+}
+
+// Generar meteoritos
+function generarMeteoritos(){
+    if(gameOver) return;
+    const x = Math.random()*width;
+    const radius = 20 + Math.random()*20;
+    meteoritos.push({x:x, y:-radius, radius:radius});
+}
+setInterval(generarMeteoritos, 1000);
+
+// Loop principal
+function loop(){
+    if(!gameOver){
+        actualizar();
+        dibujar();
+        requestAnimationFrame(loop);
+    }
+}
+loop();
+
+// Control táctil/mouse
+canvas.addEventListener('touchmove', e=>{
+    e.preventDefault();
+    const touch = e.touches[0];
+    perro.x = touch.clientX;
+});
+canvas.addEventListener('touchstart', e=>{
+    e.preventDefault();
+    balas.push({x:perro.x, y:perro.y-perro.height/2, speed:10});
+});
+canvas.addEventListener('mousedown', e=>{
+    perro.x = e.clientX;
+    balas.push({x:perro.x, y:perro.y-perro.height/2, speed:10});
+});
+canvas.addEventListener('mousemove', e=>{
+    if(e.buttons===1) perro.x = e.clientX;
+});
+
+// Reiniciar juego
+document.getElementById('gameOver').addEventListener('click', ()=>{
+    score = 0;
+    meteoritos.length = 0;
+    balas.length = 0;
+    meteorSpeed = 2;
+    gameOver = false;
+    document.getElementById('score').textContent = "Puntos: 0";
+    document.getElementById('gameOver').style.display='none';
+    loop();
+});
+
+// Ajuste de tamaño al cambiar ventana
+window.addEventListener('resize', ()=>{
+    width = window.innerWidth;
+    height = window.innerHeight - 60;
+    canvas.width = width;
+    canvas.height = height;
+});
+</script>
+
+</body>
+</html>

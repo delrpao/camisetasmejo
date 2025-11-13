@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LA RULE</title>
+<style>
+body { margin:0; padding:0; font-family: Arial; background:#111; color:#fff; display:flex; flex-direction:column; align-items:center;}
+header { width:100%; text-align:center; padding:20px; font-size:32px; font-weight:bold; background:#000;}
+.saldo-container { font-size:26px; padding:20px 50px; border-radius:25px; background:#16a085; margin:20px 0; transition:0.3s; text-align:center;}
+.apuesta { display:flex; flex-wrap:wrap; gap:10px; justify-content:center; background:#222; padding:20px; border-radius:20px; margin-bottom:20px;}
+.apuesta button { padding:10px 18px; font-size:16px; border-radius:10px; border:none; cursor:pointer; font-weight:bold; transition:0.2s;}
+.apuesta button.active { box-shadow: 0 0 15px #ff0 inset; transform:translateY(1px);}
+#rojo {background:#e74c3c; color:#fff;} #negro {background:#34495e; color:#fff;}
+#par {background:#2980b9;color:#fff;} #impar {background:#8e44ad;color:#fff;}
+.docena-btn {background:#f39c12;color:#fff;}
+#numeroContainer input { width:60px; text-align:center; font-weight:bold; font-size:16px; border-radius:8px; border:none; padding:5px;}
+.btn-girar {padding:15px 40px; font-size:20px; border-radius:20px; border:none; cursor:pointer; font-weight:bold; color:#fff; background:linear-gradient(145deg,#e67e22,#f1c40f);}
+.ruleta-container { position:relative; width:500px; height:500px; margin-bottom:20px; border-radius:50%; background:#111; box-shadow:0 0 30px rgba(255,255,0,0.5);}
+canvas { width:100%; height:100%; border-radius:50%; }
+.ganador { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); font-size:72px; font-weight:bold; display:none; color:#ffd700; text-shadow:0 0 20px #fff;}
+</style>
+</head>
+<body>
+  <button onclick="window.location.href='index.html'" 
+        style="position:fixed; top:20px; left:20px; padding:10px 20px; font-size:16px; border-radius:10px; border:none; background:#3498db; color:#fff; cursor:pointer; z-index:1000;">
+    ⬅ Volver al menú
+</button>
+<header>🎰 LA RULE</header>
+<div class="saldo-container" id="saldoContainer">Saldo: <span id="saldo">100</span> €</div>
+
+<div class="apuesta">
+  <input type="number" id="cantidad" placeholder="Cantidad" min="1">
+  <button id="rojo">Rojo</button>
+  <button id="negro">Negro</button>
+  <button id="par">Par</button>
+  <button id="impar">Impar</button>
+  <button class="docena-btn" data-doc="1">1-12</button>
+  <button class="docena-btn" data-doc="2">13-24</button>
+  <button class="docena-btn" data-doc="3">25-36</button>
+  <div id="numeroContainer"><input type="number" id="numero" placeholder="0-36" min="0" max="36"></div>
+</div>
+
+<div class="ruleta-container">
+  <canvas id="ruletaCanvas" width="500" height="500"></canvas>
+  <div class="ganador" id="ganador"></div>
+</div>
+
+<button id="girarBtn" class="btn-girar">Girar Ruleta</button>
+
+<script>
+const canvas = document.getElementById('ruletaCanvas');
+const ctx = canvas.getContext('2d');
+const ganadorDiv = document.getElementById('ganador');
+
+let saldo = 100;
+const saldoSpan = document.getElementById('saldo');
+const saldoContainer = document.getElementById('saldoContainer');
+const cantidadInput = document.getElementById('cantidad');
+let apuesta = {tipo:null, valor:null};
+
+const numeros = [
+  {num:0,color:'green'}, {num:32,color:'red'}, {num:15,color:'black'}, {num:19,color:'red'},
+  {num:4,color:'black'}, {num:21,color:'red'}, {num:2,color:'black'}, {num:25,color:'red'},
+  {num:17,color:'black'}, {num:34,color:'red'}, {num:6,color:'black'}, {num:27,color:'red'},
+  {num:13,color:'black'}, {num:36,color:'red'}, {num:11,color:'black'}, {num:30,color:'red'},
+  {num:8,color:'black'}, {num:23,color:'red'}, {num:10,color:'black'}, {num:5,color:'red'},
+  {num:24,color:'black'}, {num:16,color:'red'}, {num:33,color:'black'}, {num:1,color:'red'},
+  {num:20,color:'black'}, {num:14,color:'red'}, {num:31,color:'black'}, {num:9,color:'red'},
+  {num:22,color:'black'}, {num:18,color:'red'}, {num:29,color:'black'}, {num:7,color:'red'},
+  {num:28,color:'black'}, {num:12,color:'red'}, {num:35,color:'black'}, {num:3,color:'red'},
+  {num:26,color:'black'}
+];
+
+let numeroGanadorIndex = null;
+
+function dibujarRuleta(rotation=0){
+  const cx=canvas.width/2, cy=canvas.height/2, radius=canvas.width/2-10;
+  const anglePer=2*Math.PI/numeros.length;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  numeros.forEach((n,i)=>{
+    const start=i*anglePer+rotation;
+    const end=start+anglePer;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.arc(cx,cy,radius,start,end);
+    ctx.closePath();
+    if(i===numeroGanadorIndex) ctx.fillStyle = '#ffd700';
+    else ctx.fillStyle=n.color;
+    ctx.fill();
+    ctx.strokeStyle='#000';
+    ctx.lineWidth=2;
+    ctx.stroke();
+    ctx.save();
+    ctx.translate(cx,cy);
+    ctx.rotate(start+anglePer/2);
+    ctx.textAlign='right';
+    ctx.fillStyle='#fff';
+    ctx.font='bold 18px Arial';
+    ctx.fillText(n.num,radius-20,5);
+    ctx.restore();
+  });
+}
+dibujarRuleta();
+
+function resetActive(){document.querySelectorAll('.apuesta button').forEach(b=>b.classList.remove('active'));}
+document.getElementById('rojo').onclick = function(){apuesta={tipo:'color', valor:'red'}; resetActive(); this.classList.add('active');};
+document.getElementById('negro').onclick = function(){apuesta={tipo:'color', valor:'black'}; resetActive(); this.classList.add('active');};
+document.getElementById('par').onclick = function(){apuesta={tipo:'paridad', valor:'par'}; resetActive(); this.classList.add('active');};
+document.getElementById('impar').onclick = function(){apuesta={tipo:'paridad', valor:'impar'}; resetActive(); this.classList.add('active');};
+document.querySelectorAll('.docena-btn').forEach(b=>{ b.onclick=function(){apuesta={tipo:'docena', valor:parseInt(this.dataset.doc)}; resetActive(); this.classList.add('active'); }; });
+document.getElementById('numero').addEventListener('input',function(){ const val=parseInt(this.value); if(val>=0 && val<=36){apuesta={tipo:'numero', valor:val}; resetActive(); this.classList.add('active');} });
+
+document.getElementById('girarBtn').onclick=function(){
+  const cantidad=parseInt(cantidadInput.value);
+  if(!cantidad||cantidad>saldo||!apuesta.tipo){alert("Ingresa cantidad y apuesta válida"); return;}
+  
+  numeroGanadorIndex = Math.floor(Math.random()*numeros.length);
+  const anglePer=2*Math.PI/numeros.length;
+  const spins=6;
+  const targetRotation=spins*2*Math.PI + numeroGanadorIndex*anglePer;
+  const duracion=4000;
+  const inicio=performance.now();
+  ganadorDiv.style.display='none';
+  
+  function animar(tiempo){
+    const elapsed=tiempo-inicio;
+    const progreso=Math.min(elapsed/duracion,1);
+    const ease=1-Math.pow(1-progreso,3);
+    const rotation=ease*targetRotation;
+    dibujarRuleta(rotation);
+    
+    if(progreso<1) requestAnimationFrame(animar);
+    else{
+      const ganador=numeros[numeroGanadorIndex];
+      ganadorDiv.textContent=ganador.num;
+      ganadorDiv.style.display='block';
+      let ganado=0;
+      if(apuesta.tipo==='numero' && apuesta.valor===ganador.num) ganado=cantidad*35;
+      if(apuesta.tipo==='color' && apuesta.valor===ganador.color) ganado=cantidad*2;
+      if(apuesta.tipo==='paridad'){
+        if(apuesta.valor==='par' && ganador.num!==0 && ganador.num%2===0) ganado=cantidad*2;
+        if(apuesta.valor==='impar' && ganador.num%2===1) ganado=cantidad*2;
+      }
+      if(apuesta.tipo==='docena'){
+        if(apuesta.valor===1 && ganador.num>=1 && ganador.num<=12) ganado=cantidad*3;
+        if(apuesta.valor===2 && ganador.num>=13 && ganador.num<=24) ganado=cantidad*3;
+        if(apuesta.valor===3 && ganador.num>=25 && ganador.num<=36) ganado=cantidad*3;
+      }
+      saldo=saldo-cantidad+ganado;
+      saldoSpan.textContent=saldo;
+      saldoContainer.style.background=(ganado>0)?'#27ae60':'#c0392b';
+      setTimeout(()=>saldoContainer.style.background='#16a085',1500);
+      cantidadInput.value=''; resetActive(); document.getElementById('numero').value='';
+      apuesta={tipo:null, valor:null};
+      numeroGanadorIndex = null;
+    }
+  }
+  requestAnimationFrame(animar);
+};
+</script>
+</body>
+</html>
